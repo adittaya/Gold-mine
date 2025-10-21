@@ -1,0 +1,15 @@
+[build]
+  command = "cd react-client && npm install && npm run build"
+  publish = "react-client/dist"
+  functions = "api"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+[dev]
+  command = "cd react-client && npm run dev"
+  port = 3000
+  targetPort = 8080
+  framework = "#custom"
