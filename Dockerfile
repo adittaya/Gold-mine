@@ -20,7 +20,7 @@ COPY . .
 COPY react-client/dist ./react-client/dist
 
 # Expose the port
-EXPOSE 8080
+EXPOSE 10000
 
 # Start the application
 CMD ["npm", "start"]
