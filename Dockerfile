@@ -6,16 +6,21 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm install
 
-# Copy react-client directory and build the frontend
+# Copy server files first (excluding react-client to avoid overwriting the build)
+COPY server.js ./
+COPY netlify.toml ./
+COPY build.sh ./
+COPY postman*.json ./
+COPY README.md ./
+
+# Copy and build the react-client directory
 COPY react-client ./react-client
 WORKDIR /app/react-client
 RUN npm install
 RUN npm run build
 
-# Go back to root directory
+# Go back to root directory and copy remaining root files
 WORKDIR /app
-
-# Copy the rest of the application code (excluding node_modules)
 COPY . .
 
 # Expose the port
