@@ -2,23 +2,22 @@ FROM node:18-alpine
 
 WORKDIR /app
 
-# Copy package.json and package-lock.json (if available)
+# Copy package.json and install root dependencies first
 COPY package*.json ./
-
-# Install dependencies for the root server
 RUN npm install
 
-# Copy the rest of the application code
-COPY . .
-
-# Build the React frontend
+# Copy react-client directory and build the frontend
+COPY react-client ./react-client
 WORKDIR /app/react-client
-COPY react-client/package*.json ./
 RUN npm install
 RUN npm run build
 
 # Go back to root directory
 WORKDIR /app
+
+# Copy the rest of the application code (excluding node_modules)
+COPY . .
+COPY react-client/dist ./react-client/dist
 
 # Expose the port
 EXPOSE 8080
