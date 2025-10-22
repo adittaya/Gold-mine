@@ -17,7 +17,6 @@ WORKDIR /app
 
 # Copy the rest of the application code (excluding node_modules)
 COPY . .
-COPY react-client/dist ./react-client/dist
 
 # Expose the port
 EXPOSE 10000
